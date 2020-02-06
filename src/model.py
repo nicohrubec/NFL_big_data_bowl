@@ -45,14 +45,14 @@ class CNNTransformer(nn.Module):
 
     def __init__(self):
         super(CNNTransformer, self).__init__()
-        self.conv1 = nn.Conv1d(in_channels=6, out_channels=64, kernel_size=1)
-        self.conv2 = nn.Conv1d(in_channels=64, out_channels=32, kernel_size=1)
-        self.conv3 = nn.Conv1d(in_channels=32, out_channels=32, kernel_size=1)
-        self.encoder_layer = transformer.TransformerEncoderLayer(d_model=32, nhead=1)
+        self.conv1 = nn.Conv1d(in_channels=6, out_channels=160, kernel_size=1)
+        self.conv2 = nn.Conv1d(in_channels=160, out_channels=96, kernel_size=1)
+        self.conv3 = nn.Conv1d(in_channels=96, out_channels=96, kernel_size=1)
+        self.encoder_layer = transformer.TransformerEncoderLayer(d_model=96, nhead=32)
         self.encoder = transformer.TransformerEncoder(self.encoder_layer, num_layers=1)
         self.avgpool = nn.AvgPool1d(kernel_size=11)
-        self.dense1 = nn.Linear(32, 128)
-        self.dense2 = nn.Linear(128, 199)
+        self.dense1 = nn.Linear(96, 256)
+        self.dense2 = nn.Linear(256, 199)
         self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
