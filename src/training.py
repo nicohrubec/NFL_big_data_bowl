@@ -8,7 +8,7 @@ from sklearn.model_selection import GroupKFold
 from torch.utils.data import TensorDataset, DataLoader
 from torch.utils.tensorboard import SummaryWriter
 
-from src.model import PlayerCNN
+from src.model import CNNTransformer
 from src.preprocessing import prepare_targets
 from src.utils import set_seed
 
@@ -54,7 +54,7 @@ def train_KFolds(meta_df, feature_df, batch_size=1024, seed=42, n_folds=5, debug
         val_set = TensorDataset(xval, yval)
         val_loader = DataLoader(val_set, batch_size=batch_size, shuffle=False)
 
-        model = PlayerCNN()
+        model = CNNTransformer()
         optimizer = optim.Adam(model.parameters(), lr=.001)
 
         summary_path = 'runs/' + time.strftime("%Y%m%d-%H%M%S")
